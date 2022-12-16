@@ -1,4 +1,7 @@
 const express = require("express");
+const ejs = require("ejs");
+const path = require("path");
+
 const app = express();
 const port = 3000;
 const programmingLanguagesRouter = require("./routes/programmingLanguages");
@@ -8,8 +11,13 @@ app.use(
     extended: true,
   })
 );
+
+// view engine setup
+app.set("views", path.join(__dirname, "views"));
+app.set("view engine", "ejs");
+
 app.get("/", (req, res) => {
-  res.json({ message: "ok" });
+  res.render("index");
 });
 app.use("/programming-languages", programmingLanguagesRouter);
 /* Error handler middleware */
